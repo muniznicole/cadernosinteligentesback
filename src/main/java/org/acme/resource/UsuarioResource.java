@@ -27,7 +27,6 @@ public class UsuarioResource {
 
     @POST
     @Transactional
-    @RolesAllowed({"Administrador","Cliente"})
     public Response inserir(UsuarioResquest usuarioResquest) {
         return Response.status(201).entity(service.adicionar(usuarioResquest)).build();
     }
