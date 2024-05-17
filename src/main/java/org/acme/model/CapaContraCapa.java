@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class CapaContraCapa extends Default {
@@ -21,11 +22,11 @@ public class CapaContraCapa extends Default {
     Integer estoque;
 
     @JoinColumn(name = "id_cor")
-    @ManyToMany
+    @ManyToOne
     Cor cor;
     
     @JoinColumn(name = "id_tema")
-    @ManyToMany
+    @ManyToOne
     Tema tema;
     
     public String getNome() {

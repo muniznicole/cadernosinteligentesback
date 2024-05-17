@@ -3,6 +3,7 @@ package org.acme.resource;
 import org.acme.dto.PautaRequest;
 import org.acme.service.PautaService;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -25,30 +26,35 @@ public class PautaResource {
     PautaService service;
 
     @POST
+    @RolesAllowed({"Administrador"})
     @Transactional
     public Response inserir(PautaRequest pautaRequest) {
         return Response.status(201).entity(service.adicionar(pautaRequest)).build();
     }
-
+    
     @GET
+    @RolesAllowed({"Administrador"})
     @Path("/{id}")
     public Response buscar(@PathParam("id") Long id) {
         return Response.ok(service.buscar(id)).build();
     }
-
+    
     @GET
+    @RolesAllowed({"Administrador","Cliente"})
     public Response buscarTodos() {
         return Response.ok(service.buscarTodos()).build();
     }
-
+    
     @PUT
     @Transactional
+    @RolesAllowed({"Administrador"})
     @Path("/{id}")
     public Response alterar(@PathParam("id") Long id, PautaRequest novoPautaResquest) {
         return Response.ok(service.alterar(id, novoPautaResquest)).build();
     }
-
+    
     @DELETE
+    @RolesAllowed({"Administrador"})
     @Transactional
     @Path("/{id}")
     public Response deletar(@PathParam("id") Long id) {

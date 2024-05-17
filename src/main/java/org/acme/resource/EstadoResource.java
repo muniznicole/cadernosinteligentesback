@@ -4,6 +4,7 @@ package org.acme.resource;
 import org.acme.dto.EstadoResquest;
 import org.acme.service.EstadoService;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -28,40 +29,46 @@ public class EstadoResource {
     EstadoService service;
 
     @POST
+    @RolesAllowed({"Administrador"})
     @Transactional
     public Response inserir(EstadoResquest estadoRequest) {
         return Response.status(201).entity(service.adicionar(estadoRequest)).build();
     }
-
+    
     @GET
+    @RolesAllowed({"Administrador"})
     @Path("/{id}")
     public Response buscar(@PathParam("id") Long id) {
         return Response.ok(service.buscar(id)).build();
     }
-
+    
     @GET
+    @RolesAllowed({"Administrador","Cliente"})
     public Response buscarTodos (
         @QueryParam("page") @DefaultValue("0") int page,
         @QueryParam("pageSize") @DefaultValue("100") int pageSize ) {
-
-        return Response.ok(service.buscarTodos(page, pageSize)).build();
-    }
- 
-    @GET
-    @Path("/count")
-    public long count(){
-        return service.count();
-    }
-
-    @PUT
-    @Transactional
-    @Path("/{id}")
-    public Response alterar(@PathParam("id") Long id, EstadoResquest novoResquest) {
-        return Response.ok(service.alterar(id, novoResquest)).build();
-    }
-
-    @DELETE
-    @Transactional
+            
+            return Response.ok(service.buscarTodos(page, pageSize)).build();
+        }
+        
+        @GET
+        @Path("/count")
+        @RolesAllowed({"Administrador"})
+        public long count(){
+            return service.count();
+        }
+        
+        @PUT
+        @Transactional
+        @RolesAllowed({"Administrador"})
+        @Path("/{id}")
+        public Response alterar(@PathParam("id") Long id, EstadoResquest novoResquest) {
+            return Response.ok(service.alterar(id, novoResquest)).build();
+        }
+        
+        @DELETE
+        @Transactional
+        @RolesAllowed({"Administrador"})
     @Path("/{id}")
     public Response deletar(@PathParam("id") Long id) {
         service.delete(id);

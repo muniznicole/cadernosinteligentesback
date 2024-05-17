@@ -2,7 +2,7 @@ package org.acme.model;
 
 public enum PerfilUsuario {
     
-    CLIENTE(1,"cliente"),
+    CLIENTE(1,"Cliente"),
     ADMINSTRADOR(2,"Adminstrador");
 
     private final String descricao;

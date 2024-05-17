@@ -9,10 +9,7 @@ import io.smallrye.common.constraint.NotNull;
 import jakarta.validation.constraints.NotBlank;
 
 public record UsuarioResquest(
-@NotNull
-List<Long> endereco,
-@NotNull
-List<Long> cadernoPersonalizados,
+
 @NotBlank
 String nome,
 @NotBlank

@@ -3,6 +3,7 @@ package org.acme.resource;
 import org.acme.dto.MunicipioRequest;
 import org.acme.service.MunicipioService;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -25,23 +26,27 @@ public class MunicipioResource {
     MunicipioService service;
 
     @POST
+    @RolesAllowed({"Administrador"})
     @Transactional
     public Response inserir(MunicipioRequest municipioRequest) {
         return Response.status(201).entity(service.adicionar(municipioRequest)).build();
     }
-
+    
     @GET
+    @RolesAllowed({"Administrador"})
     @Path("/{id}")
     public Response buscar(@PathParam("id") Long id) {
         return Response.ok(service.buscar(id)).build();
     }
-
+    
     @GET
+    @RolesAllowed({"Administrador","Cliente"})
     public Response buscarTodos() {
         return Response.ok(service.buscarTodos()).build();
     }
-
+    
     @PUT
+    @RolesAllowed({"Administrador"})
     @Transactional
     @Path("/{id}")
     public Response alterar(@PathParam("id") Long id, MunicipioRequest novoMunicipioResquest) {

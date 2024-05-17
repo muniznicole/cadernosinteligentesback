@@ -3,6 +3,8 @@ package org.acme.resource;
 
 import org.acme.dto.AcessorioRequest;
 import org.acme.service.AcessorioService;
+
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -25,26 +27,30 @@ public class AcessorioResource {
     AcessorioService service;
 
     @POST
+    @RolesAllowed({"Administrador"})
     @Transactional
     public Response inserir(AcessorioRequest acessorioRequest) {
         return Response.status(201).entity(service.adicionar(acessorioRequest)).build();
     }
-
+    
     @GET
+    @RolesAllowed({"Administrador","Cliente"})
     @Path("/{id}")
     public Response buscar(@PathParam("id") Long id) {
         return Response.ok(service.buscar(id)).build();
     }
-
+    
     @PUT
+    @RolesAllowed({"Administrador"})
     @Transactional
     @Path("/{id}")
     public Response alterar(@PathParam("id") Long id, AcessorioRequest novoResquest) {
         return Response.ok(service.alterar(id, novoResquest)).build();
     }
-
+    
     @DELETE
     @Transactional
+    @RolesAllowed({"Administrador"})
     @Path("/{id}")
     public Response deletar(@PathParam("id") Long id) {
         service.delete(id);

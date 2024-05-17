@@ -16,6 +16,6 @@ public class UsuarioRepository implements PanacheRepository<Usuario> {
         return find("username = ?1 ", username);
     }
     public PanacheQuery<Usuario> findByUsernameAndSenha(String username, String senha) {
-        return find("pessoa.usuario.username = ?1 AND  pessoa.usuario.senha = ?2", username, senha);
+        return find("login = ?1 AND  senha = ?2", username, senha);
     }
 }

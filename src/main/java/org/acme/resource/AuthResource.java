@@ -4,6 +4,7 @@ import org.acme.dto.UsuarioResponse;
 import org.acme.service.HashService;
 import org.acme.service.HashServiceImpl;
 import org.acme.service.JwtService;
+import org.acme.service.JwtServiceImpl;
 import org.acme.service.UsuarioService;
 
 import jakarta.inject.Inject;
@@ -21,13 +22,13 @@ import jakarta.ws.rs.core.Response.Status;
 public class AuthResource {
 
     @Inject
-    HashService hashService;
+    HashService hashService= new HashServiceImpl();
 
     @Inject
     UsuarioService usuarioService;
 
     @Inject
-    JwtService jwtService;
+    JwtService jwtService = new JwtServiceImpl();
 
     @POST
     public Response login(AuthUsuarioDTO authDTO) {
@@ -36,14 +37,15 @@ public class AuthResource {
         UsuarioResponse usuario = null;
         if (authDTO.perfil() == 1)
             usuario = usuarioService.findByUsernameAndSenha(authDTO.login(), hash);
-        else if (authDTO.perfil() == 2) {
+            else if (authDTO.perfil() == 2) {
+            usuario = usuarioService.findByUsernameAndSenha(authDTO.login(), hash);
             // busca de usuario psicologo
         } else {
             return Response.status(Status.NOT_FOUND)
                 .entity("Username ou senha inválido").build();
         }
         return Response.ok(usuario)
-                .header("Authorization", jwtService.generateJwt(usuario))
+               .header("Authorization", jwtService.generateJwt(usuario))
                 .build();
 
     }

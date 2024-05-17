@@ -3,7 +3,7 @@ package org.acme.resource;
 import org.acme.dto.FolhaDeRostoRequest;
 import org.acme.service.FolhaDeRostoService;
 
-
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -26,18 +26,21 @@ public class FolhaDeRostoResource {
     FolhaDeRostoService service;
 
     @POST
+    @RolesAllowed({"Administrador"})
     @Transactional
     public Response inserir(FolhaDeRostoRequest folhaDeRostoRequest){
         return Response.status(201).entity(service.adicionar(folhaDeRostoRequest)).build();
     }
-
+    
     @GET
+    @RolesAllowed({"Administrador","Cliente"})
     @Path("/{id}")
     public Response buscar(@PathParam("id") Long id) {
         return Response.ok(service.buscar(id)).build();
     }
-
+    
     @PUT
+    @RolesAllowed({"Administrador"})
     @Transactional
     @Path("/{id}")
     public Response alterar(@PathParam("id") Long id, FolhaDeRostoRequest novoResquest) {
@@ -45,6 +48,7 @@ public class FolhaDeRostoResource {
     }
     
     @DELETE
+    @RolesAllowed({"Administrador"})
     @Transactional
     @Path("/{id}")
     public Response deletar(@PathParam("id") Long id) {

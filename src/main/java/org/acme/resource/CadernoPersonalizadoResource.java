@@ -3,6 +3,7 @@ package org.acme.resource;
 import org.acme.dto.CadernoPersonalizadoRequest;
 import org.acme.service.CadernoPersonalizadoService;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -25,24 +26,28 @@ public class CadernoPersonalizadoResource {
     CadernoPersonalizadoService service;
 
     @POST
+    @RolesAllowed({"Administrador"})
     @Transactional
     public Response inserir(CadernoPersonalizadoRequest cadernoPersonalizadoRequest){
         return Response.status(201).entity(service.adicionar(cadernoPersonalizadoRequest)).build();
     }
-
+    
     @GET
+    @RolesAllowed({"Administrador"})
     @Path("/{id}")
     public Response buscar(@PathParam("id") Long id) {
         return Response.ok(service.buscar(id)).build();
     }
-
-
+    
+    
     @GET
+    @RolesAllowed({"Administrador"})
     public Response buscarTodos() {
         return Response.ok(service.buscarTodos()).build();
     }
-
+    
     @PUT
+    @RolesAllowed({"Administrador"})
     @Transactional
     @Path("/{id}")
     public Response alterar(@PathParam("id") Long id, CadernoPersonalizadoRequest  novoResquest) {
@@ -50,6 +55,7 @@ public class CadernoPersonalizadoResource {
     }
     
     @DELETE
+    @RolesAllowed({"Administrador"})
     @Transactional
     @Path("/{id}")
     public Response deletar(@PathParam("id") Long id) {

@@ -4,6 +4,7 @@ package org.acme.resource;
 import org.acme.dto.CompraRequest;
 import org.acme.service.CompraService;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -26,30 +27,35 @@ public class CompraResource {
     CompraService service;
 
     @POST
+    @RolesAllowed({"Administrador","Cliente"})
     @Transactional
     public Response inserir(CompraRequest compraRequest) {
         return Response.status(201).entity(service.adicionar(compraRequest)).build();
     }
-
+    
     @GET
+    @RolesAllowed({"Administrador","Cliente"})
     @Path("/{id}")
     public Response buscar(@PathParam("id") Long id) {
         return Response.ok(service.buscar(id)).build();
     }
-
+    
     @GET
+    @RolesAllowed({"Administrador","Cliente"})
     public Response buscarTodos() {
         return Response.ok(service.buscarTodos()).build();
     }
-
+    
     @PUT
     @Transactional
+    @RolesAllowed({"Administrador","Cliente"})
     @Path("/{id}")
     public Response alterar(@PathParam("id") Long id, CompraRequest novoResquest) {
         return Response.ok(service.alterar(id, novoResquest)).build();
     }
-
+    
     @DELETE
+    @RolesAllowed({"Administrador","Cliente"})
     @Transactional
     @Path("/{id}")
     public Response deletar(@PathParam("id") Long id) {

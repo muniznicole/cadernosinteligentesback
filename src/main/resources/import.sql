@@ -46,21 +46,29 @@ insert into CadernoPersonalizado (id_folha,tamanho,id_pauta,id_capacontracapa,id
 -----------------------------------------------------------------------------
 -- CRUDS DE USUÁRIO/COMPRA/
 -----------------------------------------------------------------------------
-insert into estado (nome, sigla) values( 'Tocantins', 'TO');
-insert into estado (nome, sigla) values( 'Goiás', 'GO');
-insert into estado (nome, sigla) values( 'São Paulo', 'SP');
-insert into estado (nome, sigla) values( 'Rio de Janeiro', 'RJ');
-insert into estado (nome, sigla) values( 'Pará', 'PA');
+insert into Estado (nome, sigla) values( 'Tocantins', 'TO');
+insert into Estado (nome, sigla) values( 'Goiás', 'GO');
+insert into Estado (nome, sigla) values( 'São Paulo', 'SP');
+insert into Estado (nome, sigla) values( 'Rio de Janeiro', 'RJ');
+insert into Estado (nome, sigla) values( 'Pará', 'PA');
 
-insert into municipio (nome, id_estado) values( 'Palmas', 1);
-insert into municipio (nome, id_estado) values( 'Paraíso', 1);
-insert into municipio (nome, id_estado) values( 'Gurupi', 1);
-insert into municipio (nome, id_estado) values( 'Goiânia', 2);
-insert into municipio (nome, id_estado) values( 'Anápolis', 2);
+insert into Municipio (nome, id_estado) values( 'Palmas', 1);
+insert into Municipio (nome, id_estado) values( 'Paraíso', 1);
+insert into Municipio (nome, id_estado) values( 'Gurupi', 1);
+insert into Municipio (nome, id_estado) values( 'Goiânia', 2);
+insert into Municipio (nome, id_estado) values( 'Anápolis', 2);
 
 insert into Endereco (principal,logradouro,bairro,numero,complemento,cep,id_municipio) values('true','Plano diretor sul','906 sul','18','Casa de esquina muro azul','77023388',1);
 insert into Endereco (principal,logradouro,bairro,numero,complemento,cep,id_municipio) values('true','Plano diretor sul','1006 sul','18','Casa de esquina muro azul','77023388',2);
 insert into Endereco (principal,logradouro,bairro,numero,complemento,cep,id_municipio) values('true','Plano diretor sul','1106 sul','18','Casa de esquina muro azul','77023388',3);
 
 -- insert into Usuario (nome,email,senha,cpf,telefone,perfilUsuario) values();
+insert into usuario (nome, login, email, senha, cpf, telefone,perfilUsuarioerfilUsuario)
+values ('João Silva', 'joao123', 'joao@example.com', 'WRmQt8DvDr4um9C1cByC6yy3zL3iVH1fWaEQisbsISYOPRrU+YenzeB6zewTM0dk+cW+zsXyRr+/sqCgCjTwRQ==', '123.456.789-00', '(12) 3456-7890','CLIENTE');
+
+INSERT INTO usuario (nome, login, email, senha, cpf, telefone,perfilUsuarioerfilUsuario)
+VALUES ('Maria Oliveira', 'maria456', 'maria@example.com', 'uy31OJvGF0cjZGl+NPEY49TF/lj62L40JkIPY5HKRj7O4NcaPM+qwVG/0J6IYK1r3jXmNQaxnVJEjxA==', '987.654.321-00', '(98) 7654-3210', 'ADMINSTRADOR');
+
+INSERT INTO usuario (nome, login, email, senha, cpf, telefone,perfilUsuarioerfilUsuario)
+VALUES ('José Pereira', 'ze789', 'ze@example.com', 'Hvl6/o/ptN7PQnWlyDM77F9gUNGv2GcsFOrt6eoM9na/AAWaAKkiw0BSDzZMWFf/naLzg9j2qdjDN9A==', '456.789.123-00', '(45) 6789-1234', 'CLIENTE');
 

@@ -2,6 +2,7 @@ package org.acme.resource;
 import org.acme.dto.TemaRequest;
 import org.acme.service.TemaService;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -24,23 +25,27 @@ public class TemaResource {
     TemaService service;
 
     @POST
+    @RolesAllowed({"Administrador"})
     @Transactional
     public Response inserir(TemaRequest temaRequest) {
         return Response.status(201).entity(service.adicionar(temaRequest)).build();
     }
 
     @GET
+    @RolesAllowed({"Administrador"})
     @Path("/{id}")
     public Response buscar(@PathParam("id") Long id) {
         return Response.ok(service.buscar(id)).build();
     }
 
     @GET
+    @RolesAllowed({"Administrador"})
     public Response buscarTodos() {
         return Response.ok(service.buscarTodos()).build();
     }
 
     @PUT
+    @RolesAllowed({"Administrador"})
     @Transactional
     @Path("/{id}")
     public Response alterar(@PathParam("id") Long id, TemaRequest novoTemaResquest) {
@@ -48,6 +53,7 @@ public class TemaResource {
     }
 
     @DELETE
+    @RolesAllowed({"Administrador"})
     @Transactional
     @Path("/{id}")
     public Response deletar(@PathParam("id") Long id) {

@@ -26,6 +26,8 @@ public class UsuarioImpl implements UsuarioService {
     EnderecoRepository enderecoRepository;
     @Inject
     CadernoPersonalizadoRepository cadernoPersonalizadoRepository;
+    @Inject
+    HashService hashService = new HashServiceImpl();
 
     @Override
     public UsuarioResponse adicionar(UsuarioResquest adicionarUsuario) {
@@ -34,7 +36,7 @@ public class UsuarioImpl implements UsuarioService {
         usuario.setNome(adicionarUsuario.nome());
         usuario.setNome(adicionarUsuario.login());
         usuario.setEmail(adicionarUsuario.email());
-        usuario.setSenha(adicionarUsuario.senha());
+        usuario.setSenha(hashService.getHashSenha( adicionarUsuario.senha()));
         usuario.setCpf(adicionarUsuario.cpf());
         usuario.setTelefone(adicionarUsuario.telefone());
         usuario.setPerfilUsuarioerfilUsuario(adicionarUsuario.perfilUsuario());
@@ -62,7 +64,7 @@ public class UsuarioImpl implements UsuarioService {
         antigoUsuario.setNome(novoUsuario.nome());
         antigoUsuario.setNome(novoUsuario.login());
         antigoUsuario.setEmail(novoUsuario.email());
-        antigoUsuario.setSenha(novoUsuario.senha());
+        antigoUsuario.setSenha(hashService.getHashSenha(novoUsuario.senha()));
         antigoUsuario.setCpf(novoUsuario.cpf());
         antigoUsuario.setTelefone(novoUsuario.telefone());
         antigoUsuario.setPerfilUsuarioerfilUsuario(novoUsuario.perfilUsuario());
@@ -93,6 +95,11 @@ public class UsuarioImpl implements UsuarioService {
     //    if (usuario == null)
       //      throw new ValidationException(username, "Username ou senha inválido");
         return UsuarioResponse.valueOf(usuario);
+    }
+
+    @Override
+    public String senha(Usuario usuario) {
+    return usuario.getSenha();
     }
     
 

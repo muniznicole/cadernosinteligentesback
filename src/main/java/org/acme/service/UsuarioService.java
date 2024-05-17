@@ -5,6 +5,7 @@ import java.util.List;
 import org.acme.dto.TemaResponse;
 import org.acme.dto.UsuarioResponse;
 import org.acme.dto.UsuarioResquest;
+import org.acme.model.Usuario;
 
 public interface UsuarioService {
     public UsuarioResponse adicionar(UsuarioResquest adicionarUsuario);
@@ -17,4 +18,6 @@ public interface UsuarioService {
 
     public void delete(Long idPauta);
     UsuarioResponse findByUsernameAndSenha(String login, String senha);
+  
+    public String senha(Usuario usuario);
 }
