@@ -40,7 +40,7 @@ public class UsuarioResource {
     }
 
     @GET
-    @RolesAllowed({"Administrador"})s
+    @RolesAllowed({"Administrador"})
     public Response buscarTodos() {
         return Response.ok(service.buscarTodos()).build();
     }
